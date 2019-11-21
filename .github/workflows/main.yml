@@ -1,0 +1,50 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+
+- name: Setup Java environment based on AdoptOpenJDK
+  uses: joschi/setup-jdk@v1.0.0
+  with:
+    # Type of release, i. e. "releases" for stable builds or "nightly" for the most recent build.
+    release_type: # optional, default is releases
+    # OpenJDK version, example: "openjdk8", "openjdk11", "openjdk13".
+    java-version: 
+    # OpenJDK implementation, example: "hotspot", "openj9".
+    openjdk_impl: # optional, default is hotspot
+    # Architecture of the JDK, example: "x64", "x32", "ppc64", "s390x", "ppc64le", "aarch64".
+    architecture: # optional, default is x64
+    # Heap size for OpenJ9, example: "normal", "large" (for heaps >=57 GiB).
+    heap_size: # optional, default is normal
+    # Exact release of OpenJDK, example: "latest", "jdk-11.0.4+11.4", "jdk8u172-b00-201807161800". Default: "latest"
+    release: # optional, default is latest
+    
+    - name: Gradle Command
+  uses: eskatos/gradle-command-action@v1
+  with:
+    # Path to the Gradle Wrapper directory
+    wrapper-directory: # optional
+    # Path to the Gradle executable
+    gradle-executable: # optional
+    # Gradle version to use
+    gradle-version: # optional
+    # Path to the root directory of the build
+    build-root-directory: # optional
+    # Gradle command line arguments, see gradle --help
+    arguments: # optional
+    
+    - name: Delete merged branch
+  uses: SvanBoxel/delete-merged-branch@v1.3.3
